@@ -19,27 +19,31 @@ module.exports = () => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "./src/index.html",
-        chunks: ["main"],
+        template: "./index.html",
+        title: "Webpack Plugin"
+      }),
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "src-sw.js",
       }),
       new WebpackPwaManifest({
-        name: "My PWA",
-        short_name: "MyPWA",
-        description: "My awesome Progressive Web App!",
+        fingerprints: false,
+        name: "Text-Editor-App",
+        short_name: "TEA",
+        description: "App that allows on and offline text editing",
         background_color: "#ffffff",
-        theme_color: "#2196F3",
+        crossorigin: "use-credentials",
+        start_url: '/',
+        publicPath: '/',
         icons: [
           {
-            src: path.resolve("src/assets/icon.png"),
-            sizes: [96, 128, 192, 256, 384, 512],
+            src: path.resolve("src/images/logo.png"),
+            sizes: [96, 128, 192, 256, 384, 512], // Multiple image sizes
             destination: path.join("assets", "icons"),
           },
         ],
       }),
-      new InjectManifest({
-        swSrc: "./src/service-worker.js",
-        swDest: "service-worker.js",
-      }),
+      
     ],
 
     module: {
